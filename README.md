@@ -85,7 +85,7 @@ La Tabla 1 resume las partes principales de una incubadora neonatal y su funció
 | **Fuente de alimentación y protección eléctrica** | Convierte la tensión alterna de red en tensión continua para los circuitos y sensores; incluye elementos de protección como el fusible. | Interno | [1] |
 
 <p align="center">
-  <img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/df9ba6d7-78d7-4efd-b6d0-164086060584" />
+  <img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/df9ba6d7-78d7-4efd-b6d0-164086060584" />
 </p>
 
 <p align="center"><em>Figura 1. Partes externas de una incubadora neonatal: (1) cúpula, (2) puertas de acceso, (3) colchón y portacolchón, (4) chasis y (5) panel de control y pantalla. Los componentes internos (elemento calefactor, ventilador, sensores, humidificador y fuente de alimentación) no son visibles en esta vista. Adaptada de [7].</em></p>
