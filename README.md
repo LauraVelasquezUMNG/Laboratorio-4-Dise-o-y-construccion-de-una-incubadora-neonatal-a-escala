@@ -69,7 +69,7 @@ La Tabla 1 resume las partes principales de una incubadora neonatal y su funció
 
 **Tabla 1.** Componentes principales de una incubadora neonatal y su función.
 
-| Componente | Función | N.º en Fig. 1 | Fuente |
+| <p align="center"> Componente </p> | <p align="center"> Función </p>  |    N.º en Fig. 1    | Fuente |
 |:---|:---|:---:|:---:|
 | **Cúpula (cubierta)** | Aísla al neonato del ambiente exterior (corrientes de aire, bajas temperaturas) y crea el microambiente. Debe permitir ver al neonato; suele fabricarse en acrílico. | 1 | [1] |
 | **Puertas de acceso** | Facilitan el cuidado del neonato y reducen al mínimo la pérdida de temperatura y los cambios bruscos del ambiente interno. | 2 | [1], [2] |
