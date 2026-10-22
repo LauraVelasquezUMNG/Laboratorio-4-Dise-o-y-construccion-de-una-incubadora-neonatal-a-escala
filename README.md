@@ -35,59 +35,58 @@ El neonato intercambia calor con el entorno por cuatro mecanismos (conducción, 
 
 **Conducción.** Es la transferencia de calor por contacto directo entre la piel y una superficie más fría; para una pared plana se describe con la ley de Fourier [5], [6]:
 
-<p align="center"><i>Q</i><sub>cond</sub> = (<i>k</i> · <i>A</i> / <i>L</i>) · (<i>T</i><sub>s</sub> − <i>T</i><sub>c</sub>)</p>
+$$Q_{cond} = \frac{k \times A}{L} \times (T_{s} - T_{c})$$
 
 donde *k* es la conductividad térmica del material, *A* el área de contacto, *L* el espesor, *T*<sub>s</sub> la temperatura de la piel y *T*<sub>c</sub> la de la superficie en contacto. En un neonato sobre un colchón de espuma esta pérdida es pequeña y suele considerarse despreciable [2].
 
 **Convección.** Es el calor que pasa de la piel al aire en movimiento cuando la piel está más caliente que el aire, y se modela con la ley de enfriamiento de Newton [5], [6]:
 
-<p align="center"><i>Q</i><sub>conv</sub> = <i>h</i><sub>c</sub> · <i>A</i> · (<i>T</i><sub>s</sub> − <i>T</i><sub>a</sub>)</p>
+$$Q_{conv} = h_{c} \times A \times (T_{s} - T_{a})$$
 
 donde *h*<sub>c</sub> es el coeficiente de convección, que depende de las condiciones del flujo de aire, y *T*<sub>a</sub> la temperatura del aire.
 
 **Radiación.** Es la emisión de energía en forma de ondas electromagnéticas y resulta significativa en las incubadoras, donde la pérdida hacia paredes frías es una preocupación importante [2]:
 
-<p align="center"><i>Q</i><sub>rad</sub> = ε · σ · <i>A</i> · (<i>T</i><sub>s</sub><sup>4</sup> − <i>T</i><sub>w</sub><sup>4</sup>)</p>
+$$Q_{rad} = \epsilon \times \sigma \times A \times (T_{s}^{4} - T_{w}^{4})$$
 
 donde ε es la emisividad, σ la constante de Stefan–Boltzmann (5,67×10⁻⁸ W·m⁻²·K⁻⁴), *T*<sub>w</sub> la temperatura de la pared y las temperaturas se expresan en kelvin [6].
 
 **Evaporación.** Consiste en la pérdida de agua por la piel (transepidérmica) y por el tracto respiratorio; el calor necesario para evaporarla se toma de la piel y reduce la temperatura corporal [2]:
 
-<p align="center"><i>Q</i><sub>evap</sub> = <i>m</i><sub>w</sub> · <i>h</i><sub>fg</sub></p>
+$$Q_{evap} = m_{w} \times h_{fg}$$
 
 donde *m*<sub>w</sub> es la tasa de pérdida de agua y *h*<sub>fg</sub> el calor latente de vaporización, del orden de 0,6 kcal por gramo de agua perdida. La tasa de evaporación es proporcional al gradiente de presión de vapor entre la piel y el ambiente y crece al disminuir la humedad ambiente [5]. En prematuros de menos de 30 semanas de gestación, las pérdidas por evaporación superan el 30 % del calor metabólico generado [2].
 
 En condiciones de equilibrio térmico, el calor metabólico producido iguala las pérdidas totales:
 
-<p align="center"><i>Q</i><sub>met</sub> = <i>Q</i><sub>cond</sub> + <i>Q</i><sub>conv</sub> + <i>Q</i><sub>rad</sub> + <i>Q</i><sub>evap</sub></p>
+$$Q_{met} = Q_{cond} + Q_{conv} + Q_{rad} + Q_{evap}$$
 
 Cuando las pérdidas superan la producción metabólica, el balance energético es negativo. La incubadora aporta el calor y las condiciones ambientales que cierran ese balance [2].
 
 ### 4. Componentes principales de una incubadora neonatal y su función
 
-La Tabla 1 resume las partes principales de una incubadora neonatal y su función, y la Figura 1 muestra su disposición general.
+La Tabla 1 resume las partes principales de una incubadora neonatal y su función, y la Figura 1 muestra la ubicación de las partes visibles desde el exterior.
 
 **Tabla 1.** Componentes principales de una incubadora neonatal y su función.
 
-| Componente | Función | Fuente |
-|---|---|---|
-| **Cúpula (cubierta)** | Aísla al neonato del ambiente exterior (corrientes de aire, bajas temperaturas) y crea el microambiente. Debe permitir ver al neonato; suele fabricarse en acrílico. | [1] |
-| **Puertas de acceso** | Facilitan el cuidado del neonato y reducen al mínimo la pérdida de temperatura y los cambios bruscos del ambiente interno. | [1], [2] |
-| **Doble pared** (cuando existe) | Reduce las pérdidas radiativas y la pérdida total de calor. | [2], [5] |
-| **Chasis** | Base metálica que aloja los sensores y la fuente de alimentación y soporta el portacolchón y la cúpula. | [1] |
-| **Colchón y portacolchón** | Soporte del neonato, ubicado sobre el chasis y dentro de la cúpula. La conducción sobre un colchón de espuma es despreciable. | [1], [2] |
-| **Elemento calefactor** | Calienta el aire que se suministra al recinto (por ejemplo, una resistencia). | [2], [3] |
-| **Ventilador** | Toma aire, lo hace pasar por el elemento calefactor y lo hace circular dentro de la cabina. | [3], [5] |
-| **Sensores de temperatura y controlador (servocontrol)** | Miden la temperatura de la piel o del aire y aumentan o disminuyen el calor para mantener la temperatura de consigna. | [2], [5] |
-| **Humidificador** | Depósito o vía de agua que genera un ambiente húmedo para limitar las pérdidas por evaporación. | [2], [5] |
-| **Sensores de seguridad y alarmas** | Alertan ante temperatura fuera de rango, humedad, luminosidad o ruido, y ante la apertura de la puerta. | [1] |
-| **Fuente de alimentación y protección eléctrica** | Convierte la tensión alterna de red en tensión continua para los circuitos y sensores; incluye elementos de protección como el fusible. | [1] |
+| Componente | Función | N.º en Fig. 1 | Fuente |
+|---|---|---|---|
+| **Cúpula (cubierta)** | Aísla al neonato del ambiente exterior (corrientes de aire, bajas temperaturas) y crea el microambiente. Debe permitir ver al neonato; suele fabricarse en acrílico. | 1 | [1] |
+| **Puertas de acceso** | Facilitan el cuidado del neonato y reducen al mínimo la pérdida de temperatura y los cambios bruscos del ambiente interno. | 2 | [1], [2] |
+| **Colchón y portacolchón** | Soporte del neonato, ubicado sobre el chasis y dentro de la cúpula. La conducción sobre un colchón de espuma es despreciable. | 3 | [1], [2] |
+| **Chasis** | Base metálica que aloja los sensores y la fuente de alimentación y soporta el portacolchón y la cúpula. | 4 | [1] |
+| **Panel de control y pantalla** (interfaz del servocontrol) | Permite fijar la temperatura de control y recibir las alertas del equipo. | 5 | [1], [5] |
+| **Doble pared** (cuando existe) | Reduce las pérdidas radiativas y la pérdida total de calor. | No visible | [2], [5] |
+| **Elemento calefactor** | Calienta el aire que se suministra al recinto (por ejemplo, una resistencia). | Interno | [2], [3] |
+| **Ventilador** | Toma aire, lo hace pasar por el elemento calefactor y lo hace circular dentro de la cabina. | Interno | [3], [5] |
+| **Sensores de temperatura y controlador (servocontrol)** | Miden la temperatura de la piel o del aire y aumentan o disminuyen el calor para mantener la temperatura de consigna. | Interno | [2], [5] |
+| **Humidificador** | Depósito o vía de agua que genera un ambiente húmedo para limitar las pérdidas por evaporación. | Interno | [2], [5] |
+| **Sensores de seguridad y alarmas** | Alertan ante temperatura fuera de rango, humedad, luminosidad o ruido, y ante la apertura de la puerta. | Interno | [1] |
+| **Fuente de alimentación y protección eléctrica** | Convierte la tensión alterna de red en tensión continua para los circuitos y sensores; incluye elementos de protección como el fusible. | Interno | [1] |
 
-<p align="center">
-  <img src="images/partes_incubadora.png" alt="Partes principales de una incubadora neonatal" width="600">
-</p>
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/f24de6b5-00e3-4970-933c-fd9572768aba" />
 
-<p align="center"><em>Figura 1. Partes principales de una incubadora neonatal. Fuente: [7].</em></p>
+Figura 1. Partes externas de una incubadora neonatal: (1) cúpula, (2) puertas de acceso, (3) colchón y portacolchón, (4) chasis y (5) panel de control y pantalla. Los componentes internos (elemento calefactor, ventilador, sensores, humidificador y fuente de alimentación) no son visibles en esta vista. Adaptada de [7].
 
 ### 5. Envolvente: cúpula, puertas, doble pared y soporte del neonato
 
@@ -134,12 +133,6 @@ La norma IEC 60601-2-19 establece los requisitos particulares de seguridad bási
 
 [6] T. L. Bergman, A. S. Lavine, F. P. Incropera y D. P. DeWitt, *Fundamentals of Heat and Mass Transfer*, 7.ª ed. Hoboken, NJ, EE. UU.: Wiley, 2011.
 
-[7] AUTOR(ES), "TÍTULO DE LA FUENTE DE LA IMAGEN," MEDIO O REVISTA, año. [En línea]. Disponible: URL
+[7] Ningbo David Medical Device, "Incubadora neonatal con ruedas YP-2200B, de altura variable, con pantalla táctil y con monitor," MedicalExpo. [En línea]. Disponible: https://www.medicalexpo.es/prod/ningbo-david-medical-device/product-69526-998666.html
 
 [8] International Electrotechnical Commission, "Medical electrical equipment – Part 2-19: Particular requirements for the basic safety and essential performance of infant incubators," IEC 60601-2-19:2020, Ginebra, Suiza, 2020. [En línea]. Disponible: https://webstore.iec.ch/en/publication/89860
-
-#### **1.4. Fórmula matemática e interpretación del SPI**
-
-$$SPI = 100 - (0.7 \times PPGA_{norm} + 0.3 \times HBI_{norm})$$
-
-Esta es la fórmula original reportada por Huiku et al. (2007) y confirmada en la documentación técnica de GE Healthcare [4]. El peso de 0,7 sobre PPGAnorm frente a 0,3 sobre HBInorm refleja que la amplitud del pulso responde de forma más marcada y más rápida al estímulo nociceptivo que el intervalo entre latidos.
