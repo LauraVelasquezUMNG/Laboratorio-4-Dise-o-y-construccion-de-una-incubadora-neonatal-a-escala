@@ -88,7 +88,7 @@ La Tabla 1 resume las partes principales de una incubadora neonatal y su funció
   <img width="450" height="450" alt="image" src="https://github.com/user-attachments/assets/df9ba6d7-78d7-4efd-b6d0-164086060584" />
 </p>
 
-<p align="center"><em>Figura 1. Partes externas de una incubadora neonatal: (1) cúpula, (2) puertas de acceso, (3) colchón y portacolchón, (4) chasis y (5) panel de control y pantalla. Los componentes internos (elemento calefactor, ventilador, sensores, humidificador y fuente de alimentación) no son visibles en esta vista. Adaptada de [7].</em></p>
+<p align="center"><em>Figura 1. Partes externas de una incubadora neonatal. Adaptada de [7].</em></p>
 
 ### 5. Envolvente: cúpula, puertas, doble pared y soporte del neonato
 
