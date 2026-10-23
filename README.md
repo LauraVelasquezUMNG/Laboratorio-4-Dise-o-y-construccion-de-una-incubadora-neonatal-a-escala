@@ -220,7 +220,7 @@ La práctica permitió construir un prototipo funcional de incubadora neonatal a
 
 [8] International Electrotechnical Commission, "Medical electrical equipment – Part 2-19: Particular requirements for the basic safety and essential performance of infant incubators," IEC 60601-2-19:2020, Ginebra, Suiza, 2020. [En línea]. Disponible: https://webstore.iec.ch/en/publication/89860
 
-[9] Innolitics, "Babyleo TN500 (K251619)," FDA Device Database. [En línea]. Disponible: https://fda.innolitics.com/device/K251619 (consultado el 22 de octubre de 2026).
+[9] Innolitics, "Babyleo TN500 (K251619)," FDA Device Database. [En línea]. Disponible: https://fda.innolitics.com/device/K251619
 
-[10] LEEX Medical, "B6 / B8 Infant Incubator," LEEX. [En línea]. Disponible: https://leexmedical.com/en/product/b6-b8-b3-infantincubator/ (consultado el 22 de octubre de 2026).
+[10] LEEX Medical, "B6 / B8 Infant Incubator," LEEX. [En línea]. Disponible: https://leexmedical.com/en/product/b6-b8-b3-infantincubator/
 
