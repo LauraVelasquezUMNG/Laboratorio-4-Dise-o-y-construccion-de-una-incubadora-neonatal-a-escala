@@ -121,6 +121,85 @@ Como inconvenientes, la incubadora limita el acceso al neonato y actúa como bar
 
 La norma IEC 60601-2-19 establece los requisitos particulares de seguridad básica y desempeño esencial de las incubadoras neonatales. No aplica a incubadoras de transporte (IEC 60601-2-20), cunas de calor radiante (IEC 60601-2-21) ni equipos de fototerapia infantil (IEC 60601-2-50) [8].
 
+### 1. Procedimiento General
+
+El prototipo se construyó con una cubierta de **acrílico** transparente, que permite ver el interior de la cabina, y con dos módulos funcionales: uno de calefacción y uno de pesaje. El módulo de calefacción consiste en una caja de madera que aloja un ventilador mediano de 12 V y, frente a él, una resistencia de potencia de 20 W y 20 Ω fijada con soportes metálicos. El principio de operación sigue el descrito en la guía: el ventilador impulsa aire sobre el elemento resistivo para llevar el calor a la cabina por convección. Este módulo se alimentó con un cargador de celular de 12 V y 200 mA.
+
+El módulo de pesaje se construyó con una **celda de carga de 10 kg** fijada a una base de madera, con su respectiva plataforma de soporte para recibir la carga. La celda se conectó a una placa ESP32, que procesa la señal y muestra el peso en una pantalla LCD.
+
+Para validar el pesaje se colocó sobre la plataforma un patrón de peso conocido y se comparó el valor mostrado en la pantalla con el valor real. Para validar la calefacción se energizó el módulo con el ventilador y la resistencia, y se observó si la temperatura de la cabina aumentaba. No se obtuvieron gráficas en esta práctica, por lo que los resultados se describen a partir de las observaciones del montaje.
+
+### 2. Resultados Obtenidos
+
+Las estructuras del prototipo quedaron ensambladas e integradas: la cubierta de acrílico, el módulo de calefacción, la plataforma de pesaje y la electrónica de control con su pantalla. El costo total del sistema fue de **$150.000 COP**.
+
+El módulo de pesaje funcionó: la celda de carga de 10 kg respondió a la carga y el valor se mostró en la pantalla LCD. La lectura no se fija de inmediato, sino que avanza de forma progresiva hasta estabilizarse, lo que ocurrió en aproximadamente **1 minuto**. Frente al patrón de peso conocido, el sistema presentó un error aproximado menor al **8 %**.
+
+En el módulo de calefacción, la cabina no alcanzó un calentamiento apreciable. No se registró un valor numérico de temperatura, por lo que no fue posible comprobar el funcionamiento del control de lazo cerrado dentro del rango de 36 °C a 37,5 °C que pide la guía.
+
+### 3. Análisis de Resultados
+
+**Análisis 1: Eficacia del control de temperatura y error en el cálculo del peso**
+
+El pesaje resultó el subsistema más logrado. Con una celda de carga de bajo costo, el sistema entregó un valor con un error aproximado menor al 8 % respecto al patrón. Esta exactitud es útil para validar el principio de medición, pero para un neonato resulta limitada: a modo de ejemplo, el 8 % de una masa de 1000 g equivale a 80 g. A esto se suma el tiempo de estabilización de cerca de 1 minuto, que es aceptable para un peso estático, pero largo para un neonato que se mueve sobre la plataforma. No se determinó cuál es la causa del avance gradual de la lectura, lo que queda como punto por analizar en una siguiente iteración.
+
+En la calefacción, la cabina no logró calentarse, y la explicación más probable es que la potencia disponible fue insuficiente. A 12 V, la resistencia de 20 Ω requeriría disipar la siguiente potencia (0.6 A de corriente) para entregar su calor nominal:
+
+$$P_{res} = \frac{V^{2}}{R} = \frac{12^{2}}{20} = 7.2 \text{ W}$$
+
+mientras que el cargador utilizado, de 12 V y 200 mA, puede entregar como máximo:
+
+$$P_{fuente} = V \times I = 12 \times 0.2 = 2.4 \text{ W}$$
+
+es decir, cerca de una tercera parte de lo que la resistencia necesita, y menos aún si el ventilador se alimentó de la misma fuente. Con esa potencia limitada, el flujo de aire del ventilador, que debería distribuir el calor, tiende a disipar el poco que se genera antes de que se acumule en la cabina. Como no se midió la corriente ni la temperatura, esta explicación es una interpretación a partir de las especificaciones de los componentes y no una comprobación experimental.
+
+> [!NOTE]
+> Con una corriente de 0.2 A, la caída de tensión en una resistencia de 20 Ω sería de 4 V y la potencia disipada de solo 0.8 W. Este valor es una referencia de orden de magnitud, ya que el ventilador comparte la fuente y la corriente real no se midió.
+
+**Análisis 2: Comparación con sistemas comerciales en capacidades, limitaciones y precio**
+
+Para la comparación se consultaron las fichas públicas de dos incubadoras comerciales: el Dräger Babyleo TN500 [9] y la línea LEEX B6/B8 [10]. En el caso de Instrumentalia S.A.S. no se encontró una ficha técnica pública con especificaciones que permitiera incluirla en la comparación.
+
+**Tabla 2.** Comparación del prototipo con incubadoras comerciales.
+
+| <p align="center"> Característica </p> | <p align="center"> Prototipo </p> | <p align="center"> Dräger Babyleo TN500 [9] </p> | <p align="center"> LEEX B6/B8 [10] </p>|
+|:---|:---|:---|:---|
+| Calefacción y control de temperatura | Ventilador de 12 V y resistencia de 20 W / 20 Ω; sin calentamiento apreciable | Calefacción convectiva en modo incubadora y calefactor radiante en modo cuna; colchón calefactado opcional; ajuste de aire de 20 a 39 °C y de piel de 34 a 38 °C, en pasos de 0,1 °C | 7 canales de medición y 3 protecciones independientes de límite de calor |
+| Humedad | No incluida en el alcance de la práctica | Ajuste de 30 a 99 % de humedad relativa | Humidificación activa |
+| Oxígeno | No incluido en el alcance de la práctica | Opcional, ajuste de 21 a 65 % | Oxigenación asistida opcional |
+| Pesaje | Celda de carga de 10 kg; error aproximado menor al 8 % y estabilización de cerca de 1 min | Báscula integrada opcional, para pacientes de hasta 10 kg | Báscula digital opcional |
+| Cubierta | Acrílico transparente | Capota con cambio automático entre modo incubadora y modo cuna | Doble pared y cortina de aire |
+| Alarmas y monitoreo | Pantalla LCD con el valor del peso | Alarmas ópticas y acústicas | Pantalla táctil de 8 in; monitoreo de signos vitales opcional (ECG, SpO2, presión no invasiva, respiración y CO2) |
+| Precio | $150.000 COP | $190'000.000 | $28'000.000 |
+
+En capacidades, la diferencia principal es la regulación de la temperatura. Los equipos comerciales ajustan por separado la temperatura del aire y de la piel con una resolución de 0,1 °C, combinan varias fuentes de calor y añaden protecciones independientes contra sobrecalentamiento, mientras que el prototipo no logró calentar la cabina. Humedad, oxígeno, alarmas y monitoreo de signos vitales son también funciones que ofrecen las referencias comerciales y que quedaron fuera del alcance de esta práctica. En el pesaje, en cambio, la solución desarrollada cumple el mismo principio que la báscula opcional de los equipos comerciales, aunque no se dispone en las fichas de su exactitud para compararla con el error del prototipo.
+
+En precio, el prototipo costó $150.000 COP. Las fichas consultadas no publican el precio de los equipos comerciales, por lo que no se establece una relación numérica. Aun así, el costo del prototipo se explica por el alcance reducido: dos subsistemas básicos, sin las funciones de seguridad, monitoreo y certificación que caracterizan a un equipo clínico.
+
+### 4. Preguntas para la Discusión
+
+**Pregunta 1: ¿Qué otras variables (y por qué) además de las aquí mencionadas son críticas en el monitoreo neonatal?**
+
+La **humedad** es una de las más importantes, ya que los neonatos muy prematuros tienen alta pérdida de agua por evaporación a través de la piel, y las incubadoras incorporan humidificación para limitarla [2], [5]. Los equipos comerciales también ofrecen control de **oxígeno** como opción, además de ajuste de la humedad relativa en un rango definido [9], [10]. Otra variable es la **temperatura de la piel**, distinta de la temperatura del aire: los equipos comerciales permiten usar cualquiera de las dos como referencia de control [9].
+
+En el monitoreo de **signos vitales**, la línea LEEX incluye de forma opcional o estándar el electrocardiograma, la saturación de oxígeno (SpO2), la presión no invasiva, la respiración y el CO2 [10], lo que muestra que la frecuencia cardiaca, la respiración y la oxigenación se consideran parte del monitoreo del neonato. Por último, el **ruido y la luminosidad** dentro de la cabina se han incorporado como variables a vigilar con sensores y alarmas en prototipos de incubadora [1].
+
+**Pregunta 2: ¿Qué haría falta para convertir el sistema desarrollado en una incubadora neonatal real?**
+
+El primer paso es dimensionar la **potencia de calefacción**: según el análisis anterior, la fuente utilizada entrega aproximadamente una tercera parte de la potencia que la resistencia necesita, por lo que se requeriría una fuente y un elemento calefactor adecuados al volumen de la cabina. Luego, un **control de lazo cerrado** con sensores de temperatura calibrados, de aire y de piel, como en los equipos comerciales, que regulan ambos con resolución de 0,1 °C [9].
+
+Para llegar a un equipo clínico también harían falta funciones de seguridad y monitoreo: protecciones independientes contra sobrecalentamiento, como las 3 que tiene la línea LEEX [10], y alarmas ópticas y acústicas [9]. En el pesaje habría que reducir el error y el tiempo de estabilización. Finalmente, el equipo debe cumplir la norma **IEC 60601-2-19**, que establece los requisitos de seguridad básica y desempeño esencial de las incubadoras neonatales [8].
+
+**Pregunta 3: ¿Qué semejanzas hay entre una incubadora neonatal y una servo-cuna?**
+
+Ambas son dispositivos de apoyo a la termorregulación del neonato y comparten el principio de **servocontrol**: miden la temperatura del paciente y ajustan el calor entregado para mantenerla en el valor deseado [2]. El Dräger Babyleo TN500 lo ilustra bien, ya que integra los dos modos en un mismo equipo: al cerrar la capota funciona como incubadora con calefacción convectiva y, con la capota abierta, como cuna radiante, con ajuste de temperatura de piel en ambos casos y alarmas ópticas y acústicas [9].
+
+La diferencia está en la forma de calentar y en el acceso al paciente: la incubadora es un recinto cerrado con aire calentado, mientras que la cuna radiante es abierta y facilita el acceso, pero aumenta las pérdidas por evaporación, que en la incubadora pueden limitarse elevando la humedad del aire [2].
+
+### 5. Conclusiones
+
+La práctica permitió construir un prototipo funcional de incubadora neonatal a escala, con cubierta de acrílico, un módulo de calefacción y un módulo de pesaje, con un costo total de $150.000 COP. El pesaje con una celda de carga de 10 kg resultó viable: el sistema mostró el valor en la pantalla LCD con un error aproximado menor al 8 % y estabilizó la lectura en cerca de 1 minuto. Estos resultados indican que medir el peso con componentes de bajo costo es factible, aunque lograr la exactitud y la rapidez que exige el cuidado de un neonato requiere mejorar la medición. En la temperatura, la cabina no alcanzó un calentamiento apreciable, y el análisis de los componentes sugiere que la potencia de la fuente, de 2.4 W frente a los 7.2 W que la resistencia necesita, fue insuficiente. Por ello, controlar con gran precisión variables como la temperatura es factible en principio, pero exige una fuente de potencia adecuada, sensores calibrados y un control de lazo cerrado como los de los equipos comerciales. Como siguiente paso se recomienda redimensionar la alimentación del módulo de calefacción y medir la temperatura de la cabina para validar el control dentro del rango de 36 °C a 37,5 °C.
+
 ### Referencias
 
 [1] L. Restrepo-Pérez, N. Durango-Londoño, N. Gómez-Suárez, F. González-Ramírez y N. Rivera-Bonilla, "Prototipo de incubadora neonatal," *Rev. Ing. Biomédica*, vol. 1, no. 1, pp. 55–59, may. 2007. [En línea]. Disponible: http://www.scielo.org.co/pdf/rinbi/v1n1/v1n1a12.pdf
@@ -138,3 +217,8 @@ La norma IEC 60601-2-19 establece los requisitos particulares de seguridad bási
 [7] Ningbo David Medical Device, "Incubadora neonatal con ruedas YP-2200B, de altura variable, con pantalla táctil y con monitor," MedicalExpo. [En línea]. Disponible: https://www.medicalexpo.es/prod/ningbo-david-medical-device/product-69526-998666.html
 
 [8] International Electrotechnical Commission, "Medical electrical equipment – Part 2-19: Particular requirements for the basic safety and essential performance of infant incubators," IEC 60601-2-19:2020, Ginebra, Suiza, 2020. [En línea]. Disponible: https://webstore.iec.ch/en/publication/89860
+
+[9] Innolitics, "Babyleo TN500 (K251619)," FDA Device Database. [En línea]. Disponible: https://fda.innolitics.com/device/K251619 (consultado el 22 de octubre de 2026).
+
+[10] LEEX Medical, "B6 / B8 Infant Incubator," LEEX. [En línea]. Disponible: https://leexmedical.com/en/product/b6-b8-b3-infantincubator/ (consultado el 22 de octubre de 2026).
+
