@@ -194,7 +194,7 @@ Para llegar a un equipo clínico también harían falta funciones de seguridad y
 
 **Pregunta 3: ¿Qué semejanzas hay entre una incubadora neonatal y una servo-cuna?**
 
-Ambas son dispositivos de apoyo a la termorregulación del neonato y comparten el principio de **servocontrol**: miden la temperatura del paciente y ajustan el calor entregado para mantenerla en el valor deseado [2]. El Dräger Babyleo TN500 lo ilustra bien, ya que integra los dos modos en un mismo equipo: al cerrar la capota funciona como incubadora con calefacción convectiva y, con la capota abierta, como cuna radiante, con ajuste de temperatura de piel en ambos casos y alarmas ópticas y acústicas [9].
+Ambas son dispositivos de apoyo a la termorregulación del neonato y comparten el principio de **servocontrol**: miden la temperatura del paciente y ajustan el calor entregado para mantenerla en el valor deseado [2]. El Dräger Babyleo TN500 lo ilustra bien, debido a que integra los dos modos en un mismo equipo: al cerrar la capota funciona como incubadora con calefacción convectiva y, con la capota abierta, como cuna radiante, con ajuste de temperatura de piel en ambos casos y alarmas ópticas y acústicas [9].
 
 La diferencia está en la forma de calentar y en el acceso al paciente: la incubadora es un recinto cerrado con aire calentado, mientras que la cuna radiante es abierta y facilita el acceso, pero aumenta las pérdidas por evaporación, que en la incubadora pueden limitarse elevando la humedad del aire [2].
 
