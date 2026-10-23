@@ -172,7 +172,7 @@ Para la comparación se consultaron las fichas públicas de dos incubadoras come
 | Pesaje | Celda de carga de 10 kg; error aproximado menor al 8 % y estabilización de cerca de 1 min | Báscula integrada opcional, para pacientes de hasta 10 kg | Báscula digital opcional |
 | Cubierta | Acrílico transparente | Capota con cambio automático entre modo incubadora y modo cuna | Doble pared y cortina de aire |
 | Alarmas y monitoreo | Pantalla LCD con el valor del peso | Alarmas ópticas y acústicas | Pantalla táctil de 8 in; monitoreo de signos vitales opcional (ECG, SpO2, presión no invasiva, respiración y CO2) |
-| Precio | $150.000 COP | $190'000.000 | $28'000.000 |
+| Precio | $150.000 COP | $190.000.000 | $28.000.000 |
 
 En capacidades, la diferencia principal es la regulación de la temperatura. Los equipos comerciales ajustan por separado la temperatura del aire y de la piel con una resolución de 0,1 °C, combinan varias fuentes de calor y añaden protecciones independientes contra sobrecalentamiento, mientras que el prototipo no logró calentar la cabina. Humedad, oxígeno, alarmas y monitoreo de signos vitales son también funciones que ofrecen las referencias comerciales y que quedaron fuera del alcance de esta práctica. En el pesaje, en cambio, la solución desarrollada cumple el mismo principio que la báscula opcional de los equipos comerciales, aunque no se dispone en las fichas de su exactitud para compararla con el error del prototipo.
 
