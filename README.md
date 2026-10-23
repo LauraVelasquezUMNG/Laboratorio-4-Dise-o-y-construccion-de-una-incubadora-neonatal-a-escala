@@ -125,11 +125,106 @@ La norma IEC 60601-2-19 establece los requisitos particulares de seguridad bási
 
 ## Circuito de Control de Temperatura
 
+### 1. Descripción del Diseño
 
+Para el subsistema de calefacción convectiva, se estructuró un circuito de potencia simplificado alimentado desde la red eléctrica domiciliaria ($120$ $V_{AC}$) mediante un adaptador AC/DC comercial con salida de $12$ $V_{DC}$ y una corriente máxima nominal de $200$ $mA$.
+
+El circuito acopla dos elementos en paralelo:
+
++ **Elemento Calefactor:** Una resistencia de potencia de revestimiento cerámico de $20\ \Omega$ ($20\text{ W}$), responsable de la generación de calor.
++ **Elemento Convectivo:** Un ventilador de flujo axial de 12 V DC, encargado de hacer circular el aire a través del elemento resistivo para transferir la energía térmica hacia el interior de la cabina de acrílico por convección.
+
+### 2. Ausencia de lazo de control - Consideraciones de operación
+
+El planteamiento inicial contemplaba un sistema de control para regular la temperatura interna en el rango clínico objetivo de $36\ ^\circ\text{C}$ a $37,5\ ^\circ\text{C}$. Sin embargo, la etapa de control en lazo cerrado no se integró en la implementación física por las siguientes razones técnicas:
+
++ **Ausencia de sensores de temperatura:** Para cerrar el lazo de control es indispensable contar con la realimentación de la variable de proceso mediante un sensor. Al no disponer de un elemento de medición de temperatura dentro de la cabina, el microcontrolador carecía de la señal de entrada para calcular el error y modular la etapa de potencia.
++ **Lazo abierto:** Se optó por una operación en lazo abierto donde la carga se mantiene energizada de forma continua. La premisa de este diseño era verificar primero la capacidad del arreglo electromecánico para elevar la temperatura de la cabina por encima del nivel ambiente antes de condicionar su accionamiento a un algoritmo de control.
++ **Comportamiento del nodo de alimentación:** Al conectar el ventilador y la resistencia de forma directa y simultánea a la fuente de $200$ $mA$, la exigencia de corriente del arreglo superó la capacidad teórica del cargador. Esto impidió que la resistencia operara en su punto nominal de disipación, limitando la transferencia de energía térmica hacia el flujo de aire generado por el ventilador.
 
 ## Circuito de Medición de Peso
 
+### 1. Descripción del montaje físico
 
+El subsistema de pesaje se diseñó para medir la masa del recién nacido dentro de la incubadora mediante una celda de carga de $10\text{ kg}$ dispuesta en configuración de puente de Wheatstone. La señal diferencial de microvoltios generada por la deformación mecánica de la galga extensiométrica se procesa a través de las siguientes etapas: 
+
++ **Acondicionamiento y ADC:** La celda de carga se conectó directamente al módulo HX711, un convertidor analógico-digital (ADC) de 24 bits especializado en básculas. Este módulo incluye un amplificador de bajo ruido con ganancia seleccionable (configurado a ganancia de 128) que digitaliza la señal analógica y se comunica con el microcontrolador mediante una interfaz de dos hilos (reloj SCK en GPIO 4 y datos DT en GPIO 16).
++ **Procesamiento (ESP32):** Se utilizó una placa de desarrollo ESP32 operada a 3.3 V para adquirir las lecturas crudas del HX711, ejecutar el algoritmo de filtrado digital adaptativo y gestionar la calibración no volátil.
++ **Visualización de datos:** Para la interfaz local de usuario se integró un display gráfico LCD de $128 \times 32$ píxeles con controlador SSD1306, conectado al bus $I^2C$ del ESP32 mediante los pines SDA (GPIO 21) y SCL (GPIO 22) a la dirección hexadecimal
+
+### 2. Implementación del software
+
+El código desarrollado en PlatformIO sobre el framework de Arduino gestiona el filtrado de señal, la tara automática al encender, el almacenamiento persistente de la calibración y la actualización de la pantalla.
+
+#### 2.1. Filtrado adaptativo de lecturas
+
+Para mitigar el ruido electromagnético y mecánico sin sacrificar el tiempo de respuesta ante cambios de carga, se implementó un filtro de suavizado adaptativo en la función `loop()`:
+
+```c++
+// Lectura no bloqueante + filtro adaptivo
+if (balanza.is_ready()) {
+  float p = balanza.get_units(1);
+  if (fabsf(p - pesoF) > UMBRAL_BRUSCO_G) {
+    pesoF = p;              // Cambio brusco (>15 g): respuesta inmediata
+  } else {
+    pesoF += ALFA * (p - pesoF); // Cambios pequeños: filtro IIR / suavizado (ALFA = 0.15)
+  }
+}
+```
+Si la variación instantánea supera los $15\text{ g}$ (UMBRAL_BRUSCO_G), el sistema actualiza de inmediato el peso retenido para responder rápidamente al colocar o retirar un objeto. Si la variación es menor, aplica un filtro de promedio ponderado ($IIR$) con $\alpha = 0.15$ para estabilizar la lectura frente a oscilaciones de menor magnitud.
+
+#### 2.2. Gestión de memoria no volátil
+
+Para mantener la calibración tras un reinicio sin necesidad de reajustar manualmente la escala, se utiliza la librería ``Preferences`` del ESP32:
+
+```c++
+prefs.begin("balanza", false);
+factor = prefs.getFloat("factor", FACTOR_DEFAULT); // Carga el factor guardado en NVS
+if (factor < 100 || factor > 400) {                  // Verificación de integridad
+  factor = FACTOR_DEFAULT; 
+  prefs.remove("factor");
+}
+balanza.set_scale(factor);
+```
+El valor del factor de escala se almacena en la memoria flash interna del ESP32. Al encender la cuna, el programa recupera la constante guardada y valida que esté dentro del rango físicamente aceptable ($100\text{ a }400\text{ cuentas/g}$), descartándola si se encuentra corrupta.
+
+#### 2.3. Tara automática e interfaz serial
+
+El firmware realiza una tara automática durante la fase de inicialización (``setup()``) considerando la cuna vacía, e incluye una rutina de atención por comando serial (``atenderSerial()``) para tareas de mantenimiento e inspección clínica:
+
+```c++
+void atenderSerial() {
+  if (!Serial.available()) return;
+  String c = Serial.readStringUntil('\n'); c.trim();
+  if (c == "t") {
+    balanza.tare(20); pesoF = 0; // Comando 't': Ejecuta tara promediando 20 lecturas
+  } else if (c.startsWith("c")) {
+    calibrar(c.substring(1).toFloat()); // Comando 'cNNN': Calibra con NNN gramos patrón
+  }
+}
+```
+
+Permite tarar la plataforma en cualquier momento enviando el carácter '``t``', así como recalibrar el sistema enviando '``c``' seguido de la masa del patrón en gramos.
+
+#### 2.4. Refresco e interfaz de usuario LCD
+
+Para evitar el parpadeo constante de la pantalla $128 \times 32$, se programa un temporizador no bloqueante mediante ``millis()`` que actualiza el display cada $250\text{ ms}$:
+
+```c++
+if (millis() - tOled >= 250) {
+  tOled = millis();
+  float pesoMostrar = pesoF < 1.0f ? 0.0f : pesoF; // Zona muerta de 1 g (evita valores negativos)
+  char buf[16];
+  snprintf(buf, sizeof(buf), "%.0f g", pesoMostrar);
+  
+  oled.clearDisplay();
+  oled.setTextSize(1); oled.setCursor(0, 0);  oled.print("Peso:");
+  oled.setTextSize(2); oled.setCursor(0, 14); oled.print(buf);
+  oled.display();
+}
+```
+
+Se implementa una "zona muerta" de $1.0\text{ g}$ que fuerza la pantalla a mostrar $0\text{ g}$ cuando no hay carga útil, previniendo lecturas negativas no deseables producidas por ligeras derivas térmicas del HX711. 
 
 > ### Parte B
 
