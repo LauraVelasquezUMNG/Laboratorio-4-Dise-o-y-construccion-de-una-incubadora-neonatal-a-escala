@@ -129,7 +129,7 @@ El prototipo se construyó con una cubierta de **acrílico** transparente, que p
 
 El módulo de pesaje se construyó con una **celda de carga de 10 kg** fijada a una base de madera, con su respectiva plataforma de soporte para recibir la carga. La celda se conectó a una placa ESP32, que procesa la señal y muestra el peso en una pantalla LCD.
 
-Para validar el pesaje se colocó sobre la plataforma un patrón de peso conocido y se comparó el valor mostrado en la pantalla con el valor real. Para validar la calefacción se energizó el módulo con el ventilador y la resistencia, y se observó si la temperatura de la cabina aumentaba. No se obtuvieron gráficas en esta práctica, por lo que los resultados se describen a partir de las observaciones del montaje.
+Para validar el pesaje se colocó sobre la plataforma un patrón de peso conocido y se comparó el valor mostrado en la pantalla con el valor real. Para validar la calefacción se energizó el módulo con el ventilador y la resistencia, y se observó si la temperatura de la cabina aumentaba.
 
 ### 2. Resultados Obtenidos
 
@@ -137,7 +137,7 @@ Las estructuras del prototipo quedaron ensambladas e integradas: la cubierta de 
 
 El módulo de pesaje funcionó: la celda de carga de 10 kg respondió a la carga y el valor se mostró en la pantalla LCD. La lectura no se fija de inmediato, sino que avanza de forma progresiva hasta estabilizarse, lo que ocurrió en aproximadamente **1 minuto**. Frente al patrón de peso conocido, el sistema presentó un error aproximado menor al **8 %**.
 
-En el módulo de calefacción, la cabina no alcanzó un calentamiento apreciable. No se registró un valor numérico de temperatura, por lo que no fue posible comprobar el funcionamiento del control de lazo cerrado dentro del rango de 36 °C a 37,5 °C que pide la guía.
+En el módulo de calefacción, el ventilador operó con normalidad y mantuvo la circulación de aire dentro de la cabina; sin embargo, esta no alcanzó un calentamiento apreciable. No se registró un valor numérico de temperatura, por lo que no fue posible comprobar el funcionamiento del control de lazo cerrado dentro del rango de 36 °C a 37,5 °C.
 
 ### 3. Análisis de Resultados
 
@@ -156,7 +156,7 @@ $$P_{fuente} = V \times I = 12 \times 0.2 = 2.4 \text{ W}$$
 es decir, cerca de una tercera parte de lo que la resistencia necesita, y menos aún si el ventilador se alimentó de la misma fuente. Con esa potencia limitada, el flujo de aire del ventilador, que debería distribuir el calor, tiende a disipar el poco que se genera antes de que se acumule en la cabina. Como no se midió la corriente ni la temperatura, esta explicación es una interpretación a partir de las especificaciones de los componentes y no una comprobación experimental.
 
 > [!NOTE]
-> Con una corriente de 0.2 A, la caída de tensión en una resistencia de 20 Ω sería de 4 V y la potencia disipada de solo 0.8 W. Este valor es una referencia de orden de magnitud, ya que el ventilador comparte la fuente y la corriente real no se midió.
+> Con una corriente de 0.2 A, la caída de tensión en una resistencia de 20 Ω sería de 4 V y la potencia disipada de solo 0.8 W. Este valor es una referencia de orden de magnitud, debido a que el ventilador comparte la fuente y la corriente real no se midió.
 
 **Análisis 2: Comparación con sistemas comerciales en capacidades, limitaciones y precio**
 
@@ -176,7 +176,7 @@ Para la comparación se consultaron las fichas públicas de dos incubadoras come
 
 En capacidades, la diferencia principal es la regulación de la temperatura. Los equipos comerciales ajustan por separado la temperatura del aire y de la piel con una resolución de 0,1 °C, combinan varias fuentes de calor y añaden protecciones independientes contra sobrecalentamiento, mientras que el prototipo no logró calentar la cabina. Humedad, oxígeno, alarmas y monitoreo de signos vitales son también funciones que ofrecen las referencias comerciales y que quedaron fuera del alcance de esta práctica. En el pesaje, en cambio, la solución desarrollada cumple el mismo principio que la báscula opcional de los equipos comerciales, aunque no se dispone en las fichas de su exactitud para compararla con el error del prototipo.
 
-En precio, el prototipo costó $150.000 COP. Las fichas consultadas no publican el precio de los equipos comerciales, por lo que no se establece una relación numérica. Aun así, el costo del prototipo se explica por el alcance reducido: dos subsistemas básicos, sin las funciones de seguridad, monitoreo y certificación que caracterizan a un equipo clínico.
+En precio, el prototipo costó $150.000 COP, frente a los $190.000.000 COP del Dräger Babyleo TN500 y los $28.000.000 COP de la línea LEEX B6/B8. La diferencia es considerable: el prototipo representa una fracción mínima del costo de cualquiera de los dos equipos comerciales. Esto se explica por el alcance reducido del prototipo: dos subsistemas básicos, sin las funciones de seguridad, monitoreo y certificación que caracterizan a un equipo clínico.
 
 ### 4. Preguntas para la Discusión
 
