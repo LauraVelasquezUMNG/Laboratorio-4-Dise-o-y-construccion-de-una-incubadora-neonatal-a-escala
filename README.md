@@ -249,11 +249,7 @@ El módulo de calefacción se alojó en una **caja de MDF acoplada a una de las 
 + **Ventilador axial de 12 V DC** de 9 cm × 9 cm × 2,5 cm, con un consumo nominal aproximado de 0,1 A a 12 V, que impulsa el aire hacia el interior de la cabina.
 + **Resistencia de potencia de 20 Ω / 20 W** con revestimiento cerámico, ubicada frente al ventilador y fijada con soportes metálicos, que calienta el aire a su paso.
 
-Ambos elementos se conectaron en paralelo a un adaptador de $12$ $V_{DC}$ y $200$ $mA$ y se operaron en lazo abierto, con la carga energizada de forma continua. A $12$ $V$, la resistencia demanda $0,6$ $A$ y el ventilador cerca de $0,1$ $A$, para un total aproximado de:
-
-$$I_{total} = \frac{12\ \text{V}}{20\ \Omega} + 0{,}1\ \text{A} \approx 0{,}7\ \text{A}$$
-
-es decir, más de tres veces la corriente que puede entregar el adaptador. Esta limitación se analiza en el **Análisis 1**.
+Ambos elementos se conectaron en paralelo a un adaptador de $12$ $V_{DC}$ y $200$ $mA$ y se operaron en lazo abierto, con la carga energizada de forma continua. 
 
 Como no se dispuso de un sensor de temperatura dentro de la cabina, **no se implementó el panel de 3 LEDs** que pide la guía (verde dentro del rango de 36 °C a 37,5 °C y rojo por encima o por debajo). Su lógica depende de comparar la temperatura medida con los límites del rango, de modo que sin esa medición no había una señal sobre la cual decidir. Su implementación queda ligada a la integración del sensor y del control de lazo cerrado.
 
