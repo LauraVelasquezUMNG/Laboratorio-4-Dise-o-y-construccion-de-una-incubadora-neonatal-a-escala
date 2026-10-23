@@ -17,6 +17,8 @@ Comprender la importancia de las incubadoras neonatales en la supervivencia, el 
 
 > ### Parte A
 
+## Revisión de la Literatura
+
 ### 1. Incubadora neonatal: definición y propósito
 
 Una **incubadora neonatal** es un dispositivo médico que genera un entorno controlado en el que se regulan variables importantes para el desarrollo del recién nacido. Su origen está ligado a la atención de neonatos prematuros, que requieren un medio capaz de simular las condiciones del vientre materno [1]. Constructivamente, es un recinto cerrado al que se suministra aire calentado externamente; la potencia de calentamiento puede controlarse manualmente o mediante un **servocontrol** termostático que mantiene la temperatura de la piel o del aire en un valor deseado [2].
@@ -120,6 +122,18 @@ Como inconvenientes, la incubadora limita el acceso al neonato y actúa como bar
 ### 9. Normativa aplicable
 
 La norma IEC 60601-2-19 establece los requisitos particulares de seguridad básica y desempeño esencial de las incubadoras neonatales. No aplica a incubadoras de transporte (IEC 60601-2-20), cunas de calor radiante (IEC 60601-2-21) ni equipos de fototerapia infantil (IEC 60601-2-50) [8].
+
+## Circuito de Control de Temperatura
+
+
+
+## Circuito de Medición de Peso
+
+
+
+> ### Parte B
+
+
 
 > ### Parte C
 
