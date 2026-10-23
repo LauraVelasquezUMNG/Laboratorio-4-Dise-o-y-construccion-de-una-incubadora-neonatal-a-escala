@@ -228,6 +228,81 @@ Se implementa una "zona muerta" de $1.0\text{ g}$ que fuerza la pantalla a mostr
 
 > ### Parte B
 
+### 1. Construcción del modelo de incubadora neonatal a escala
+
+#### 1.a. Cubierta y estructura
+
+El prototipo se construyó con unas dimensiones de **48 cm de largo × 24 cm de ancho × 25 cm de alto** y consta de dos partes principales:
+
++ **Base (chasis):** lámina de MDF sobre la que se ubican el módulo de pesaje y la cama del neonato, y que soporta la cubierta. Cumple la función del chasis de una incubadora comercial, que sostiene el portacolchón y la cúpula [1].
++ **Cubierta (cúpula):** fabricada en **acrílico transparente de 3 mm** de espesor. El material permite observar el interior de la cabina en todo momento y, al formar un recinto cerrado, limita la pérdida de calor por corrientes de aire hacia el exterior. Es el mismo material que emplean las cúpulas de las incubadoras comerciales, aunque estas usan espesores cercanos a 6 mm [1].
+
+**Mecanismo de apertura y cierre.** La cubierta se unió a la base mediante **tres bisagras pequeñas** ubicadas en la cara posterior. De esta forma, la cúpula completa gira hacia atrás y deja libre el acceso a toda la cabina para colocar o retirar al neonato (en la práctica, el patrón de peso). Al cerrarse, la cubierta descansa sobre la base y vuelve a formar el recinto.
+
+> [!NOTE]
+> A diferencia de las incubadoras comerciales, que tienen puertas de acceso pequeñas para atender al neonato sin abrir toda la cúpula [1], en el prototipo la apertura es total. Esto facilita el montaje y las pruebas, pero en un equipo real provocaría una mayor caída de la temperatura interior cada vez que se abre la cabina [2].
+
+#### 1.b. Regulación de la temperatura por convección
+
+El módulo de calefacción se alojó en una **caja de MDF acoplada a una de las caras laterales** de la incubadora, de modo que el aire calentado ingresa a la cabina por ese costado y la zona central queda libre para la cama del neonato. Dentro de la caja se ubicaron los dos elementos del sistema convectivo, descritos en la sección *Circuito de Control de Temperatura*:
+
++ **Ventilador axial de 12 V DC** de 9 cm × 9 cm × 2,5 cm, con un consumo nominal aproximado de 0,1 A a 12 V, que impulsa el aire hacia el interior de la cabina.
++ **Resistencia de potencia de 20 Ω / 20 W** con revestimiento cerámico, ubicada frente al ventilador y fijada con soportes metálicos, que calienta el aire a su paso.
+
+Ambos elementos se conectaron en paralelo a un adaptador de $12$ $V_{DC}$ y $200$ $mA$ y se operaron en lazo abierto, con la carga energizada de forma continua. A $12$ $V$, la resistencia demanda $0,6$ $A$ y el ventilador cerca de $0,1$ $A$, para un total aproximado de:
+
+$$I_{total} = \frac{12\ \text{V}}{20\ \Omega} + 0{,}1\ \text{A} \approx 0{,}7\ \text{A}$$
+
+es decir, más de tres veces la corriente que puede entregar el adaptador. Esta limitación se analiza en el **Análisis 1**.
+
+Como no se dispuso de un sensor de temperatura dentro de la cabina, **no se implementó el panel de 3 LEDs** que pide la guía (verde dentro del rango de 36 °C a 37,5 °C y rojo por encima o por debajo). Su lógica depende de comparar la temperatura medida con los límites del rango, de modo que sin esa medición no había una señal sobre la cual decidir. Su implementación queda ligada a la integración del sensor y del control de lazo cerrado.
+
+#### 1.c. Medición del peso del recién nacido
+
+El subsistema de pesaje usa una **celda de carga de barra de 10 kg** de aleación de aluminio (80 mm × 12,7 mm × 12,7 mm), con galgas extensiométricas en configuración de puente de Wheatstone. La celda se montó **en voladizo**: un extremo se atornilló a la base de MDF y el otro sostiene la plataforma sobre la que se coloca la carga, con separadores en ambos extremos. Así, la zona central de la celda, donde están las galgas, queda libre y se flexiona en proporción al peso aplicado.
+
+La señal de la celda se digitaliza con el módulo **HX711**, se procesa en la **ESP32** y el peso en gramos se muestra en una **pantalla LCD de 128 × 32 píxeles**, con lo cual se cumple el requisito de visualización de la guía. El detalle del acondicionamiento y del firmware se presenta en la sección *Circuito de Medición de Peso*, y las conexiones se resumen en la Tabla 2.
+
+**Tabla 2.** Conexiones del subsistema de pesaje.
+
+| <p align="center"> Origen </p> | <p align="center"> Destino </p> | <p align="center"> Señal </p> |
+|:---|:---|:---|
+| Celda – cable rojo / negro | HX711 – E+ / E− | Excitación del puente |
+| Celda – cable verde / blanco | HX711 – A+ / A− | Señal diferencial |
+| HX711 – VCC / GND | ESP32 – 3V3 / GND | Alimentación |
+| HX711 – SCK | ESP32 – GPIO 4 | Reloj |
+| HX711 – DT | ESP32 – GPIO 16 | Datos |
+| LCD – VCC / GND | ESP32 – 3V3 / GND | Alimentación |
+| LCD – SDA / SCL | ESP32 – GPIO 21 / GPIO 22 | Bus $I^2C$ |
+
+#### 1.d. Costo de cada una de las partes
+
+La Tabla 3 presenta el costo de cada parte del prototipo. Los precios de la celda de carga, el módulo HX711, la pantalla y el ventilador corresponden a valores de referencia del proveedor Zamux Electrónica (Bogotá). Los demás son aproximados.
+
+**Tabla 3.** Costos del prototipo (COP).
+
+| <p align="center"> Subsistema </p> | <p align="center"> Componente </p> | <p align="center"> Costo (COP) </p> |
+|:---|:---|---:|
+| **Estructura** | Acrílico transparente de 3 mm (cubierta, cortes incluidos) | 55.000 |
+| | Láminas de MDF (base, caja del calefactor y plataforma de pesaje) | 9.000 |
+| | Bisagras (×3) y pegante | 6.000 |
+| | ***Subtotal estructura*** | ***70.000*** |
+| **Calefacción** | Ventilador axial 12 V DC | 12.500 |
+| | Resistencia de potencia 20 Ω / 20 W | 2.500 |
+| | Adaptador AC/DC 12 V – 200 mA | 6.000 |
+| **Pesaje y control** | Placa de desarrollo ESP32 | 22.000 |
+| | Celda de carga 10 kg | 11.900 |
+| | Módulo HX711 | 4.800 |
+| | Pantalla LCD 128 × 32 $I^2C$ (SSD1306) | 15.900 |
+| **Varios** | Cables, jumpers, tornillería y soportes metálicos | 4.400 |
+| | ***Subtotal electrónica*** | ***80.000*** |
+| | **Total del sistema** | **150.000** |
+
+La estructura representa cerca del 47 % del costo total, y el acrílico es el elemento más costoso del prototipo. En la electrónica, el mayor peso lo tienen la ESP32 y la pantalla, seguidas por el ventilador y la celda de carga.
+
+### 2. Costo total del sistema
+
+El costo total del prototipo fue de **$150.000 COP**: $70.000 COP en estructura (acrílico, MDF y elementos de unión) y $80.000 COP en electrónica (calefacción, pesaje, control y visualización), según el desglose de la Tabla 3. La comparación de este costo y de las capacidades del prototipo con incubadoras comerciales se presenta en el **Análisis 2** (Tabla 4).
 
 
 > ### Parte C
