@@ -127,7 +127,7 @@ La norma IEC 60601-2-19 establece los requisitos particulares de seguridad bási
 
 El prototipo se construyó con una cubierta de **acrílico** transparente, que permite ver el interior de la cabina, y con dos módulos funcionales: uno de calefacción y uno de pesaje. El módulo de calefacción consiste en una caja de madera que aloja un ventilador mediano de 12 V y, frente a él, una resistencia de potencia de 20 W y 20 Ω fijada con soportes metálicos. El principio de operación sigue el descrito en la guía: el ventilador impulsa aire sobre el elemento resistivo para llevar el calor a la cabina por convección. Este módulo se alimentó con un cargador de celular de 12 V y 200 mA.
 
-El módulo de pesaje se construyó con una **celda de carga de 10 kg** fijada a una base de madera, con su respectiva plataforma de soporte para recibir la carga. La celda se conectó a una placa ESP32, que procesa la señal y muestra el peso en una pantalla LCD.
+El módulo de pesaje se construyó con una **celda de carga de 10 kg** fijada a una base de madera, con su respectiva plataforma de soporte para recibir la carga. La celda se conectó a un módulo amplificador **HX711**, encargado de convertir su señal analógica en un valor digital, y este a su vez a una placa ESP32, que procesa la señal y muestra el peso en una pantalla LCD.
 
 Para validar el pesaje se colocó sobre la plataforma un patrón de peso conocido y se comparó el valor mostrado en la pantalla con el valor real. Para validar la calefacción se energizó el módulo con el ventilador y la resistencia, y se observó si la temperatura de la cabina aumentaba.
 
